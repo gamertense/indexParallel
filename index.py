@@ -32,10 +32,10 @@ doc1 = docFromFile("docs/doc1.txt")
 doc2 = docFromFile("docs/doc2.txt")
 index = create_index([doc, doc1, doc2])
 
-s1 = "Macbook"
-s2 = "Apple"
-# s1 = input("First term: ")
-# s2 = input("Second term: ")
+# s1 = "Macbook"
+# s2 = "Apple"
+s1 = input("First term: ")
+s2 = input("Second term: ")
 posting_list1 = set(index[s1.lower()])
 posting_list2 = set(index[s2.lower()])
 posting_listres = posting_list1 and posting_list2

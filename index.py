@@ -41,3 +41,4 @@ posting_list2 = set(index[s2.lower()])
 posting_listres = posting_list1 and posting_list2
 
 print(posting_listres)
+# test pushing

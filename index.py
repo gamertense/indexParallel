@@ -1,4 +1,6 @@
 from collections import defaultdict
+import glob
+import os
 
 
 def create_index(data):
@@ -13,7 +15,7 @@ def docFromFile(fname):
     doc = []
     with open(fname) as f:
         content = f.readlines()
-        # you may also want to remove whitespace characters like `\n` at the end of each line
+    # Remove whitespace characters like `\n` at the end of each line
     content = [x.strip() for x in content]
     for paragraph in content:
         wordList = paragraph.split(' ')
@@ -26,19 +28,25 @@ def docFromFile(fname):
                 doc.append(word)
     return doc
 
+termList = []
+os.chdir("docs/")
 
-doc = docFromFile("docs/doc.txt")
-doc1 = docFromFile("docs/doc1.txt")
-doc2 = docFromFile("docs/doc2.txt")
-index = create_index([doc, doc1, doc2])
+x = 0
+for file in glob.glob("*.txt"):
+    termList.append(docFromFile(file))
+    x += 1
+print(termList)
+index = create_index(termList)
+# print(index.keys())
 
-# s1 = "Macbook"
-# s2 = "Apple"
-s1 = input("First term: ")
-s2 = input("Second term: ")
+s1 = "apple"
+s2 = "pro"
+# # s1 = input("First term: ")
+# # s2 = input("Second term: ")
 posting_list1 = set(index[s1.lower()])
 posting_list2 = set(index[s2.lower()])
-posting_listres = posting_list1 and posting_list2
+posting_listres = posting_list1 & posting_list2
 
-print(posting_listres)
-# test pushing
+print("Term1: ", s1, " ", posting_list1)
+print("Term2: ", s2, " ", posting_list2)
+print("Result: ", posting_listres)

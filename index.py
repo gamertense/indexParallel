@@ -1,11 +1,10 @@
 from collections import defaultdict
 import glob
 import os
-from multiprocessing import Pool
-from multiprocessing.dummy import Pool as ThreadPool 
+from multiprocessing.dummy import Pool as ThreadPool
 import time
 
-start = time.clock()
+
 def create_index(data):
     index = defaultdict(list)
     for i, tokens in enumerate(data):
@@ -31,58 +30,64 @@ def docFromFile(fname):
                 doc.append(word)
     return doc
 
-    
 
-termList = []
-os.chdir("docs/")
 def postinglist():
+    termList = []
     x = 0
-    for file in glob.glob("*.txt"):
+    for file in glob.glob("docs/*.txt"):
         termList.append(docFromFile(file))
         x += 1
-    #print(termList)
+    return termList
     # print(index.keys())
 
+
 def postinglistmp():
-    pool = ThreadPool(8)
-    termList = pool.map(docFromFile,glob.glob("*.txt"))
-    #print(termList)
+    pool = ThreadPool(4)
+    termList = pool.map(docFromFile, glob.glob("docs/*.txt"))
+    return termList
 
 
-def search(data1):
-
-    index = create_index(termList)
+def search(data1, index):
+    # Use set() to remove duplicated index
     posting_list1 = set(index[data1.lower()])
     return posting_list1
 
-def search2(data2):
 
-    index = create_index(termList)
+def search2(data2, index):
+    # Use set() to remove duplicated index
     posting_list2 = set(index[data2.lower()])
     return posting_list2
 
-def searchop(posting_list1,posting_list2):
-#add more operation like or,maybe near search
+
+def searchop(posting_list1, posting_list2):
+    # add more operation like or,maybe near search
     posting_listres = posting_list1 & posting_list2
     return posting_listres
 
 
+if __name__ == '__main__':
+    start = time.process_time()
+    termList = postinglist()
+    end = time.process_time()
+    timeSeq = end - start
+    print("Creating posting list in sequential time used = ", timeSeq)
 
-#postinglist()
-postinglistmp()
-# # s1 = input("First term: ")
-# # s2 = input("Second term: ")
+    start = time.process_time()
+    termList = postinglistmp()
+    end = time.process_time()
+    timeSeq = end - start
+    print("Creating posting list in parallel time used = ", timeSeq)
 
-s1 = "brother"
-s2 = "water"
-#posting_list1 = search(s1)
-#posting_list2 = search2(s2)
-#posting_listres = searchop(posting_list1,posting_list2)
+    index = create_index(termList)
+    # s1 = input("First term: ")
+    # s2 = input("Second term: ")
 
-stop = time.clock()
+    s1 = "brother"
+    s2 = "water"
+    posting_list1 = search(s1, index)
+    posting_list2 = search2(s2, index)
+    posting_listres = searchop(posting_list1, posting_list2)
 
-#print("Term1: ", s1, " ", posting_list1)
-#print("Term2: ", s2, " ", posting_list2)
-#print("Result: ", posting_listres)
-
-print(str(stop-start)+"s") #printtime
+    print("Term1: ", s1, " ", posting_list1)
+    print("Term2: ", s2, " ", posting_list2)
+    print("Result: ", posting_listres)

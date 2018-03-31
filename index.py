@@ -1,8 +1,9 @@
 from collections import defaultdict
 import glob
 import os
-from multiprocessing.dummy import Pool as ThreadPool
 import time
+import multiprocessing as mp
+from multiprocessing import pool
 
 
 def create_index(data):
@@ -41,9 +42,10 @@ def postinglist():
     # print(index.keys())
 
 
-def postinglistmp():
-    pool = ThreadPool(4)
-    termList = pool.map(docFromFile, glob.glob("docs/*.txt"))
+def multiprocess(np):
+    pool = mp.Pool(processes=np)
+    termList = [pool.apply_async(docFromFile, args= (file,)) for file in glob.glob("docs/*.txt")]
+    termList = [p.get() for p in termList]
     return termList
 
 
@@ -73,7 +75,7 @@ if __name__ == '__main__':
     print("Creating posting list in sequential time used = ", timeSeq)
 
     start = time.process_time()
-    termList = postinglistmp()
+    termList = multiprocess(8)
     end = time.process_time()
     timeSeq = end - start
     print("Creating posting list in parallel time used = ", timeSeq)

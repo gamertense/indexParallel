@@ -1,9 +1,28 @@
 from collections import defaultdict
 import glob
 import os
+import timeit
 import time
 import multiprocessing as mp
-from multiprocessing import pool
+from multiprocessing.dummy import Pool as ThreadPool
+
+
+def search(data1, index):
+    # Use set() to remove duplicated index
+    posting_list1 = set(index[data1.lower()])
+    return posting_list1
+
+
+def search2(data2, index):
+    # Use set() to remove duplicated index
+    posting_list2 = set(index[data2.lower()])
+    return posting_list2
+
+
+def searchop(posting_list1, posting_list2):
+    # add more operation like or,maybe near search
+    posting_listres = posting_list1 & posting_list2
+    return posting_listres
 
 
 def create_index(data):
@@ -33,53 +52,40 @@ def docFromFile(fname):
 
 
 def postinglist():
+    docList = glob.glob("docs/*.txt")
+    docList.sort()
     termList = []
     x = 0
-    for file in glob.glob("docs/*.txt"):
-        termList.append(docFromFile(file))
+    for docFile in docList:
+        termList.append(docFromFile(docFile))
         x += 1
     return termList
     # print(index.keys())
 
 
-def multiprocess(np):
+def postinglistMP(np):
+    docList = glob.glob("docs/*.txt")
+    docList.sort()
     pool = mp.Pool(processes=np)
-    termList = [pool.apply_async(docFromFile, args= (file,)) for file in glob.glob("docs/*.txt")]
+    termList = [pool.apply_async(docFromFile, args=(docFile,))
+                for docFile in docList]
     termList = [p.get() for p in termList]
     return termList
 
 
-def search(data1, index):
-    # Use set() to remove duplicated index
-    posting_list1 = set(index[data1.lower()])
-    return posting_list1
-
-
-def search2(data2, index):
-    # Use set() to remove duplicated index
-    posting_list2 = set(index[data2.lower()])
-    return posting_list2
-
-
-def searchop(posting_list1, posting_list2):
-    # add more operation like or,maybe near search
-    posting_listres = posting_list1 & posting_list2
-    return posting_listres
+def postinglistThread(nt):
+    docList = glob.glob("docs/*.txt")
+    docList.sort()
+    pool = ThreadPool(nt)
+    results = pool.map(docFromFile, docList)
+    pool.close()
+    pool.join()
+    return results
 
 
 if __name__ == '__main__':
-    start = time.process_time()
-    termList = postinglist()
-    end = time.process_time()
-    timeSeq = end - start
-    print("Creating posting list in sequential time used = ", timeSeq)
-
-    start = time.process_time()
-    termList = multiprocess(8)
-    end = time.process_time()
-    timeSeq = end - start
-    print("Creating posting list in parallel time used = ", timeSeq)
-
+    n = 4
+    termList = postinglistMP(n)
     index = create_index(termList)
     # s1 = input("First term: ")
     # s2 = input("Second term: ")
@@ -93,3 +99,22 @@ if __name__ == '__main__':
     print("Term1: ", s1, " ", posting_list1)
     print("Term2: ", s2, " ", posting_list2)
     print("Result: ", posting_listres)
+
+    benchmark = []
+    benchmark.append(timeit.Timer('postinglist()',
+                                  'from __main__ import postinglist').timeit(number=1))
+    benchmark.append(timeit.Timer('postinglistMP(n)',
+                                  'from __main__ import postinglistMP, n').timeit(number=1))
+    benchmark.append(timeit.Timer('postinglistThread(n)',
+                                  'from __main__ import postinglistThread, n').timeit(number=1))
+    print("Creating posting list time used:")
+    print("\tSequential = ", benchmark[0])
+    print("\t%d processes = " % n, benchmark[1])
+    print("\t%d threads (using ThreadPool) = " % n, benchmark[2])
+
+    # Old time function
+    # start = time.process_time()
+    # termList = postinglistMP(n)
+    # end = time.process_time()
+    # timeSeq = end - start
+    # print("Creating posting list in parallel time used = ", timeSeq)

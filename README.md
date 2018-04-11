@@ -1,6 +1,6 @@
 # Requirements
 - [Python 3.5.2 or 3.6.5](https://www.python.org/)
-- [XAMPP]((https://www.apachefriends.org/))
+- [XAMPP](https://www.apachefriends.org/)
 
 ## Python libraries
 - matplotlib

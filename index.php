@@ -67,15 +67,16 @@ if (isset($_POST['term1']) && isset($_POST['term2'])) {
         }
         ?>
         <div class="text-center darken-grey-text mb-4">
-                <h1 class="font-bold mt-4 mb-3 h5">Benchmark graph</h1>
-                <div class="col-md-8 mb-4 offset-md-2">
+            <h1 class="font-bold mt-4 mb-3 h5">Benchmark graph</h1>
+            <div class="col-md-8 mb-4 offset-md-2">
                 <div class="card">
                     <center>
-                        <div id="imagediv"><a href="python_script/benchmark.png" data-lightbox="image-1" data-title="Serial vs. Multiprocessing"></a></div>
+                        <div id="imagediv"><a href="python_script/benchmark.png" data-lightbox="image-1"
+                                              data-title="Serial vs. Multiprocessing"></a></div>
                     </center>
                 </div>
-                </div>
             </div>
+        </div>
     </div>
 </form>
 </body>
@@ -90,8 +91,8 @@ if (isset($_POST['term1']) && isset($_POST['term2'])) {
                 document.getElementsByTagName("img")[0].setAttribute("width", "80%");
             }
         });
-        lightbox.option({
-      'resizeDuration': 200,
-      'wrapAround': true
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true
     })
 </script>

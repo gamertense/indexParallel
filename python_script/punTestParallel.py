@@ -17,5 +17,11 @@ def multiprocess(number_processes):
 
 if __name__ == '__main__':
     time_used = timeit.Timer(
+        'multiprocess(1)', 'from __main__ import multiprocess').timeit(number=1)
+    print(time_used)
+    time_used = timeit.Timer(
+        'multiprocess(2)', 'from __main__ import multiprocess').timeit(number=1)
+    print(time_used)
+    time_used = timeit.Timer(
         'multiprocess(4)', 'from __main__ import multiprocess').timeit(number=1)
     print(time_used)

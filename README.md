@@ -32,6 +32,7 @@ sudo /opt/lampp/lampp startapache
 `
 to start only Apache server.
 5. Copy our project to */opt/lampp/htdocs*. For example, */opt/lampp/htdocs/ourproject*.
+6. Noted that by default /opt/lampp/htdocs can't be write. 'chmod 777 opt/lampp/htdocs'command maybe needed to give permission. 
 
 ## See it in action
 1. Navigate your browser to *localhost/ourproject*

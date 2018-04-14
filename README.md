@@ -1,3 +1,5 @@
+Implemented from "Information Retrieval" class. This program indexes all .txt files in docs folder in parallel. The two posting lists (or inverted indexes) are stored in RAM waiting for searching terms such as "brother" and "water" to do an AND operation, which gives the docID both "brother" and "water" appear.
+
 # Requirements
 - [Python 3.5.2 or 3.6.5](https://www.python.org/)
 - [XAMPP](https://www.apachefriends.org/)
@@ -32,7 +34,7 @@ sudo /opt/lampp/lampp startapache
 `
 to start only Apache server.
 5. Copy our project to */opt/lampp/htdocs*. For example, */opt/lampp/htdocs/ourproject*.
-6. Noted that by default /opt/lampp/htdocs can't be write. 'chmod 777 opt/lampp/htdocs'command maybe needed to give permission. 
+6. Note that by default */opt/lampp/htdocs* directory can't be executed. `chmod 777 opt/lampp/htdocs` command is needed to give permission. 
 
 ## See it in action
 1. Navigate your browser to *localhost/ourproject*

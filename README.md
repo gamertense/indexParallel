@@ -39,7 +39,16 @@ to start only Apache server.
 ## See it in action
 1. Navigate your browser to *localhost/ourproject*
 2. Type two terms you want to search and hit search button.
-3. The output will appear below the search button along with a benchmark graph.
+3. The output will appear below the search button along with a benchmark graph. The sample output is shown below.
+```
+Term1: brother {0, 1, 2, 3, 4, 5, 7, 8, 11, 13, 17, 19, 20, 21, 23} 
+Term2: water {1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 17, 19, 21, 22, 23} 
+Result: {1, 2, 3, 4, 5, 7, 8, 17, 19, 21, 23} 
 
-
+Creating posting list time used: 
+Serial = 0.12405996700005062 
+2 processes = 0.09641718099999252 
+4 processes = 0.09300662999999076 
+8 processes = 0.10388105300000916
+```
 > Note: Work best on Ubuntu 16.04. We tried running on Windows 10 and it gave us the incorrect benchmark results (serial was faster than parallel).

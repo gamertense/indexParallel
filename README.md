@@ -1,4 +1,4 @@
-Implemented from "Information Retrieval" class. This program indexes all .txt files in docs folder in parallel. The two posting lists (or inverted indexes) are stored in RAM waiting for searching terms such as "brother" and "water" to do an AND operation, which gives the docID both "brother" and "water" appear.
+Implemented from "Information Retrieval" class. This web application indexes all .txt files in docs folder in parallel. The two posting lists (or inverted indexes) are stored in RAM waiting for searching terms such as "brother" and "water" to do an AND operation, which gives the docID both "brother" and "water" appear.
 
 # Requirements
 - [Python 3.5.2 or 3.6.5](https://www.python.org/)

@@ -36,10 +36,11 @@ to start only Apache server.
 5. Copy our project to */opt/lampp/htdocs*. For example, */opt/lampp/htdocs/ourproject*.
 6. Note that by default */opt/lampp/htdocs* directory can't be executed. `chmod 777 opt/lampp/htdocs` command is needed to give permission. 
 
-## See it in action
+## See It in Action
 1. Navigate your browser to *localhost/ourproject*
-2. Type two terms you want to search and hit search button.
-3. The output will appear below the search button along with a benchmark graph. The sample output is shown below.
+2. If you see a benchmark graph, make sure you remove it before continue (file located at *python_script/benchmark.png*) because the web app might not show the new generated one.
+3. Type two terms you want to search and hit search button.
+4. The output will appear below the search button along with a benchmark graph. The sample output is shown below.
 ```
 Term1: brother {0, 1, 2, 3, 4, 5, 7, 8, 11, 13, 17, 19, 20, 21, 23} 
 Term2: water {1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 17, 19, 21, 22, 23} 

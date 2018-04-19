@@ -36,7 +36,7 @@ to start only Apache server.
 5. Copy our project to */opt/lampp/htdocs*. For example, */opt/lampp/htdocs/ourproject*.
 6. Note that by default */opt/lampp/htdocs* directory can't be executed. `chmod 777 opt/lampp/htdocs` command is needed to give permission. 
 
-## See It in Action
+## See it in action
 1. Navigate your browser to *localhost/ourproject*
 2. If you see a benchmark graph, make sure you remove it before continue (file located at *python_script/benchmark.png*) because the web app might not show the new generated one.
 3. Type two terms you want to search and hit search button.

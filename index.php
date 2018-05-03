@@ -82,7 +82,11 @@ if (isset($_POST['term1']) && isset($_POST['term2'])) {
 </body>
 
 <script>
-    var img = $("<img />").attr('src', 'python_script/benchmark.png')
+$(document).ready(function () {
+    d = new Date();
+    // var imageURL = "python_script/benchmark.png?"+ d.getTime();
+    var imageURL = "python_script/benchmark.png";
+    var img = $("<img />").attr('src', imageURL)
         .on('load', function () {
             if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
                 alert('broken image!');
@@ -95,4 +99,5 @@ if (isset($_POST['term1']) && isset($_POST['term2'])) {
         'resizeDuration': 200,
         'wrapAround': true
     })
+});
 </script>

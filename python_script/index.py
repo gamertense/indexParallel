@@ -1,6 +1,8 @@
 from function import search, search2, searchop, create_index, docFromFile, postinglist, postinglistMP, postinglistThread
 import timeit
 import time
+import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import numpy as np
 import sys
@@ -69,10 +71,7 @@ if __name__ == '__main__':
     print("<br>8 processes = ", benchmark[3])
     print("<br>2 threads (using ThreadPool) = ", benchmark[4])
 
-    # Old time function
-    # start = time.process_time()
-    # termList = postinglistMP(n)
-    # end = time.process_time()
-    # timeSeq = end - start
-    # print("Creating posting list in parallel time used = ", timeSeq)
-    plot_results()
+    try:
+        plot_results()
+    except:
+        print("<br>Error!")

@@ -31,7 +31,7 @@ def create_index(data):
 
 def docFromFile(fname):
     doc = []
-    with open(fname) as f:
+    with open(fname, encoding="utf8") as f:
         content = f.readlines()
     # Remove whitespace characters like `\n` at the end of each line
     content = [x.strip() for x in content]
